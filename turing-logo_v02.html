@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>TURING Logo Motion</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+    }
+
+    .logo {
+      font-size: 6rem;
+      font-weight: bold;
+      position: relative;
+      letter-spacing: 4px;
+      animation: emerge 1s ease-in forwards, glitch 1.5s 1s linear, rebuild 1.5s 2.5s ease-out forwards;
+    }
+
+    /* 出現（生成） */
+    @keyframes emerge {
+      0% { opacity: 0; filter: blur(8px); }
+      70% { opacity: 1; filter: blur(2px); }
+      100% { opacity: 1; filter: blur(0); }
+    }
+
+    /* 崩壊（グリッチ） */
+    @keyframes glitch {
+      0%, 100% { transform: none; }
+      10% { transform: translateX(-2px); color: #f00; }
+      20% { transform: translateX(2px); color: #fff; }
+      30% { transform: translateX(-1px); color: #f00; }
+      40% { transform: translateX(1px); color: #fff; }
+      50% { transform: translateX(-2px); color: #f00; }
+      60% { transform: translateX(2px); color: #fff; }
+      70% { transform: translateX(-1px); color: #f00; }
+      80% { transform: translateX(1px); color: #fff; }
+      90% { transform: translateX(0px); color: #fff; }
+    }
+
+    /* 再構築（再起動） */
+    @keyframes rebuild {
+      0% { filter: brightness(0.8); }
+      50% { filter: brightness(1.2); text-shadow: 0 0 8px #e50914; }
+      100% { filter: brightness(1.0); text-shadow: 0 0 20px #e50914; }
+    }
+
+    /* 赤い走査線 */
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #e50914, transparent);
+      animation: scanline 1.5s 2.5s linear forwards;
+    }
+
+    @keyframes scanline {
+      0% { left: -100%; opacity: 0; }
+      20% { opacity: 1; }
+      100% { left: 100%; opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <div class="logo">TURING</div>
+    <div class="scanline"></div>
+  </div>
+
+  <script>
+    // ▼ 効果音再生（あとでHowler.jsで実装可能）
+    // new Howl({ src: ['emerge.mp3'] }).play(); // 出現音
+    // setTimeout(() => new Howl({ src: ['glitch.mp3'] }).play(), 1000);
+    // setTimeout(() => new Howl({ src: ['rebuild.mp3'] }).play(), 2500);
+
+    // ループ再生したい場合（デモ用）
+    // setInterval(() => location.reload(), 6000);
+  </script>
+</body>
+</html>
